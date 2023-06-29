@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,85 @@
     <script src="../dist/bundle.js"></script>
 </head>
 <body>
+
+ <!-- Navigation Bar -->
+
+<div class="navbar bg-base-100 md:p-5">
+    <div class="flex-1">
+        <a class="btn btn-ghost normal-case text-xl">Better GCash</a>
+    </div>
+    <div class="flex-none gap-2">
+        <ul class="menu menu-horizontal px-1">
+            <li><a>Link</a></li>
+            <li>
+                <details>
+                    <summary>
+                        Parent
+                    </summary>
+                    <ul class="p-2 bg-base-100">
+                        <li><a>Link 1</a></li>
+                        <li><a>Link 2</a></li>
+                    </ul>
+                </details>
+            </li>
+        </ul>
+        <div class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                <div class="w-10 rounded-full">
+                    <img src="profile.jpg" />
+                </div>
+            </label>
+            <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                <li>
+                    <a class="justify-between">
+                        Profile
+                        <span class="badge">New</span>
+                    </a>
+                </li>
+                <li><a>Settings</a></li>
+                <li><a>Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Div Wrapper -->
+
+<div class="pt-10">
+
+    <!-- Balance Wrapper -->
+
+    <div class="flex flex-row justify-center w-full">
+
+        <!-- Balance -->
+
+        <div class="stats grid-flow-row border-primary border-2 text-primary-content md:grid-flow-col">
+            <div class="stat">
+                <div class="badge badge-outline">Account Balance</div>
+                <div class="stat-value">{accountBalance}</div>
+                <div class="stat-actions">
+                    <button class="btn btn-sm btn-success">Add funds</button>
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="badge badge-outline">Bank Account</div>
+                <div class="stat-value">{bankAccount}</div>
+                <div class="stat-actions">
+                    <button class="btn btn-sm">Withdrawal</button>
+                    <button class="btn btn-sm">deposit</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     
+
+    <!--  -->
+    <!--  -->
+
+</div>
+
 </body>
 </html>
