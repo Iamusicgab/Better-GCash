@@ -3,13 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tailwind": "tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch",
+    "webpack": "npx webpack --watch"
   },
   "author": "",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
     "firebase": "^9.23.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.2",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4"
   }
 }

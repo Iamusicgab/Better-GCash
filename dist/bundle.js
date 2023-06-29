@@ -1,0 +1,1 @@
+(()=>{"use strict";console.log("Hello World!"),console.log("Hello nigga"),console.log(2)})();
