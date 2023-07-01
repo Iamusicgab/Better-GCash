@@ -1,19 +1,28 @@
-//Configuration and connection to firebase
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+//Login Imports
+import { inputEmail, inputPassword, btnLogin } from "./ui";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyCuJJLIhMJ1erv6vRVFLbpYuiDpYc7JVnU",
-  authDomain: "better-gcash.firebaseapp.com",
-  databaseURL: "https://better-gcash-default-rtdb.firebaseio.com",
-  projectId: "better-gcash",
-  storageBucket: "better-gcash.appspot.com",
-  messagingSenderId: "293907249950",
-  appId: "1:293907249950:web:5aa7b7a0bfba14e0e3a70f",
-  measurementId: "G-YD5KN6HJRB"
-};
+//Firebase Config
+//NOTE: The other Firebase API keys and config are in the firebasecf.js file
 
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+import { app } from "./firebasecf";
+
+//Firebase Imports
+import { getAuth, connectAuthEmulator, signInWithEmailAndPassword } from "firebase/auth";
 
 const auth = getAuth(app);
+connectAuthEmulator(auth, "http://localhost:9099");
+
+console.log(btnLogin);
+
+//Login Function
+const loginEmailPassword = async () => {
+  const email = inputEmail.value;
+  const password = inputPassword.value;
+
+  const userCredential = await signInWithEmailAndPassword(auth, email, password);
+  console.log(userCredential.user);
+}
+
+//btnLogin.addEventListener("click", loginEmailPassword);
+
+console.log(auth);
