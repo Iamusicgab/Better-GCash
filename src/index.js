@@ -13,16 +13,3 @@ const auth = getAuth(app);
 connectAuthEmulator(auth, "http://localhost:9099");
 
 console.log(btnLogin);
-
-//Login Function
-const loginEmailPassword = async () => {
-  const email = inputEmail.value;
-  const password = inputPassword.value;
-
-  const userCredential = await signInWithEmailAndPassword(auth, email, password);
-  console.log(userCredential.user);
-}
-
-//btnLogin.addEventListener("click", loginEmailPassword);
-
-console.log(auth);
