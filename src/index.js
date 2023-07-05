@@ -1,16 +1,38 @@
 //Firebase Config
 //NOTE: The other Firebase API keys and config are in the firebasecf.js file
-import { app } from "./firebasecf";
+    import {
+        app
+    } from "./firebasecf";
 
-//Login Imports
-import { inputEmail, inputPassword, btnLogin, loginSignup, logoutBtn, errorBlock, errorField } from "./ui";
+//HTML Elements Imports
+    import {
+        inputEmail,
+        inputPassword,
+        btnLogin,
+        logoutBtn,
+        errorBlock,
+        errorField,
+        userProfile
+    } from "./ui";
 
 //Firebase Imports
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, AuthErrorCodes } from "firebase/auth";
+    import {
+        getAuth,
+        signInWithEmailAndPassword,
+        onAuthStateChanged,
+        signOut,
+        AuthErrorCodes
+    } from "firebase/auth";
 
-
-
-console.log(btnLogin);
+    import {
+        getFirestore,
+        collection,
+        getDocs,
+        addDoc,
+        doc,
+        updateDoc,
+        deleteDoc
+    } from "firebase/firestore";
 
 //AUTHENTICATION FUNCTIONS
 const auth = getAuth(app);
@@ -28,14 +50,20 @@ const monitorAuthState = async () => {
     })
 }
 
-function showLoggedIn() {
-    balanceForm.classList.remove("hidden");
-    loginForm.classList.add("hidden");
+const showLoggedIn = () => {
+    balanceForm.classList.remove("hidden")
+    loginForm.classList.add("hidden")
+    userProfile.classList.remove("hidden")
 }
-function showSignedOut() {
-    balanceForm.classList.add("hidden");
-    loginForm.classList.remove("hidden");
+    
+
+
+const showSignedOut = () => {
+    balanceForm.classList.add("hidden")
+    loginForm.classList.remove("hidden")
+    userProfile.classList.add("hidden")
 }
+    
 
 monitorAuthState();
 
@@ -50,7 +78,7 @@ const loginEmailPassword = async () => {
     }
     catch (error) {
         console.log(error);
-        loginError(error);
+        loginError(error); 
     }
 
 }
@@ -59,18 +87,21 @@ btnLogin.addEventListener("click", loginEmailPassword);
 
 //Logout
 const logout = async () => {
+    location.reload();
     await signOut(auth);
 }
 
 logoutBtn.addEventListener("click", logout);
 
 //Error
-export const loginError = (error) => {
+const loginError = (error) => {
     errorBlock.classList.remove("hidden");
     if (error.code == AuthErrorCodes.INVALID_PASSWORD) {
         errorField.innerHTML = "Wrong Password";
-    } else if (error.code == AuthErrorCodes.USER_NOT_FOUND) {
+    } else if (error.code == AuthErrorCodes.USER_DELETED) {
         errorField.innerHTML = "User Not Found";
+    } else if (error.code == AuthErrorCodes.INVALID_EMAIL) {
+        errorField.innerHTML = "Invalid Email";
     } else {
         console.log(error.code);
         errorField.innerHTML = error.code;

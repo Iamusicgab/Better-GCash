@@ -10,15 +10,15 @@
 
  <!-- Navigation Bar -->
 
-<div class="navbar bg-base-100 md:p-5">
+<div id="navigationBar" class="navbar bg-base-100 md:p-5">
 
     <div class="flex-1">
         <a class="btn btn-ghost normal-case text-xl">Better GCash</a>
     </div>
 
-    <div class="flex-none gap-2">
-        <ul class="menu menu-horizontal px-1">
+    <div class="flex-none gap-2 ">
 
+        <ul class="menu menu-horizontal px-1 hidden">
             <li><a>Link</a></li>
 
             <li>
@@ -32,10 +32,9 @@
                     </ul>
                 </details>
             </li>
-            
         </ul>
 
-        <div class="dropdown dropdown-end">
+        <div id="userProfile" class="dropdown dropdown-end hidden">
             <label tabindex="0" class="btn btn-ghost btn-circle avatar">
                 <div class="w-10 rounded-full">
                     <img src="./img/profile.jpg" />
@@ -53,14 +52,12 @@
             </ul>
         </div>
 
-            <a id="loginSignup" class="btn btn-primary">Login / Signup</a>
-
     </div>
 </div>
 
 <!-- Login Popup -->
 
-<div id="loginForm" class="fixed w-full p-5 h-full">
+<div id="loginForm" class="fixed w-full p-5 h-full hidden">
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <div class="space-y-6">
             <div class="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -94,7 +91,7 @@
                     class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
                     in</button>
             </div>
-            <div id="errorBlock" class="alert alert-error hidden">
+            <div id="errorBlock" class="alert alert-error rounded-md p-2 hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
