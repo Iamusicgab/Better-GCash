@@ -12,7 +12,9 @@
         logoutBtn,
         errorBlock,
         errorField,
-        userProfile
+        userProfile,
+        addFunds,
+        availableBalance
     } from "./ui";
 
 //Firebase Imports
@@ -21,7 +23,8 @@
         signInWithEmailAndPassword,
         onAuthStateChanged,
         signOut,
-        AuthErrorCodes
+        AuthErrorCodes,
+        
     } from "firebase/auth";
 
     import {
@@ -31,18 +34,24 @@
         addDoc,
         doc,
         updateDoc,
-        deleteDoc
+        deleteDoc,
+        setDoc,
+        getDoc
     } from "firebase/firestore";
 
 //AUTHENTICATION FUNCTIONS
 const auth = getAuth(app);
+
+//FIRESTORE FUNCTIONS
+//Firestore
+const db = getFirestore(app);
 
 //Monitor Authentication State
 const monitorAuthState = async () => {
     onAuthStateChanged(auth, (user) => {
         if (user) {
             console.log("User is logged in");
-            showLoggedIn();
+            readData(user.uid);
         } else {
             console.log("User is logged out");
             showSignedOut();
@@ -107,3 +116,25 @@ const loginError = (error) => {
         errorField.innerHTML = error.code;
     }
 }
+
+//Set Data
+const setData = async () => {
+    const user = auth.currentUser.uid
+    await setDoc(doc(db, "users", user), { 
+        firstName: "Hello",
+        lastName: "World",
+        balance: 10000
+     })
+}
+
+//Read data
+const readData = async (useruid) => {
+    const user = useruid
+    const docRef = doc(db, "users", user);
+    const docSnap = await getDoc(docRef);
+    showLoggedIn();
+    console.log(docSnap.data().balance);
+    availableBalance.innerHTML = ("₱" + docSnap.data().balance);
+}
+
+addFunds.addEventListener("click", setData);
