@@ -34059,6 +34059,7 @@ const app = (0,firebase_app__WEBPACK_IMPORTED_MODULE_0__.initializeApp)(firebase
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   accountNumber: () => (/* binding */ accountNumber),
 /* harmony export */   addFunds: () => (/* binding */ addFunds),
 /* harmony export */   availableBalance: () => (/* binding */ availableBalance),
 /* harmony export */   btnLogin: () => (/* binding */ btnLogin),
@@ -34067,6 +34068,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   inputEmail: () => (/* binding */ inputEmail),
 /* harmony export */   inputPassword: () => (/* binding */ inputPassword),
 /* harmony export */   logoutBtn: () => (/* binding */ logoutBtn),
+/* harmony export */   name: () => (/* binding */ name),
 /* harmony export */   userProfile: () => (/* binding */ userProfile)
 /* harmony export */ });
 const inputEmail = document.querySelector("#inputEmail");
@@ -34078,6 +34080,9 @@ const errorField = document.querySelector("#errorField");
 const userProfile = document.querySelector("#userProfile");
 const addFunds = document.querySelector("#addFunds");
 const availableBalance = document.querySelector("#availableBalance");
+const name = document.querySelector("#name");
+const accountNumber = document.querySelector("#accountNumber");
+
 
 /***/ }),
 
@@ -36936,15 +36941,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var firebase_firestore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! firebase/firestore */ "./node_modules/firebase/firestore/dist/esm/index.esm.js");
 //Firebase Config
 //NOTE: The other Firebase API keys and config are in the firebasecf.js file
-    
+
 
 //HTML Elements Imports
-    
+
 
 //Firebase Imports
-    
 
-    
+
+
 
 //AUTHENTICATION FUNCTIONS
 const auth = (0,firebase_auth__WEBPACK_IMPORTED_MODULE_2__.getAuth)(_firebasecf__WEBPACK_IMPORTED_MODULE_0__.app);
@@ -36955,96 +36960,86 @@ const db = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_3__.getFirestore)(_fir
 
 //Monitor Authentication State
 const monitorAuthState = async () => {
-    (0,firebase_auth__WEBPACK_IMPORTED_MODULE_2__.onAuthStateChanged)(auth, (user) => {
-        if (user) {
-            console.log("User is logged in");
-            readData(user.uid);
-        } else {
-            console.log("User is logged out");
-            showSignedOut();
-        }
-    })
-}
+  (0,firebase_auth__WEBPACK_IMPORTED_MODULE_2__.onAuthStateChanged)(auth, (user) => {
+    if (user) {
+      console.log("User is logged in");
+      readData(user.uid);
+    } else {
+      console.log("User is logged out");
+      showSignedOut();
+    }
+  });
+};
 
 const showLoggedIn = () => {
-    balanceForm.classList.remove("hidden")
-    loginForm.classList.add("hidden")
-    _ui__WEBPACK_IMPORTED_MODULE_1__.userProfile.classList.remove("hidden")
-}
-    
-
+  balanceForm.classList.remove("hidden");
+  loginForm.classList.add("hidden");
+  _ui__WEBPACK_IMPORTED_MODULE_1__.userProfile.classList.remove("hidden");
+};
 
 const showSignedOut = () => {
-    balanceForm.classList.add("hidden")
-    loginForm.classList.remove("hidden")
-    _ui__WEBPACK_IMPORTED_MODULE_1__.userProfile.classList.add("hidden")
-}
-    
+  balanceForm.classList.add("hidden");
+  loginForm.classList.remove("hidden");
+  _ui__WEBPACK_IMPORTED_MODULE_1__.userProfile.classList.add("hidden");
+};
 
 monitorAuthState();
 
 //Login
 const loginEmailPassword = async () => {
-    const loginEmail = _ui__WEBPACK_IMPORTED_MODULE_1__.inputEmail.value;
-    const loginPassword = _ui__WEBPACK_IMPORTED_MODULE_1__.inputPassword.value;
+  const loginEmail = _ui__WEBPACK_IMPORTED_MODULE_1__.inputEmail.value;
+  const loginPassword = _ui__WEBPACK_IMPORTED_MODULE_1__.inputPassword.value;
 
-    try {
-        const userCredential = await (0,firebase_auth__WEBPACK_IMPORTED_MODULE_2__.signInWithEmailAndPassword)(auth, loginEmail, loginPassword);
-        console.log(userCredential.user);
-    }
-    catch (error) {
-        console.log(error);
-        loginError(error); 
-    }
-
-}
+  try {
+    const userCredential = await (0,firebase_auth__WEBPACK_IMPORTED_MODULE_2__.signInWithEmailAndPassword)(
+      auth,
+      loginEmail,
+      loginPassword
+    );
+    console.log(userCredential.user);
+  } catch (error) {
+    console.log(error);
+    loginError(error);
+  }
+};
 
 _ui__WEBPACK_IMPORTED_MODULE_1__.btnLogin.addEventListener("click", loginEmailPassword);
 
 //Logout
 const logout = async () => {
-    location.reload();
-    await (0,firebase_auth__WEBPACK_IMPORTED_MODULE_2__.signOut)(auth);
-}
+  showSignedOut();
+  await (0,firebase_auth__WEBPACK_IMPORTED_MODULE_2__.signOut)(auth);
+};
 
 _ui__WEBPACK_IMPORTED_MODULE_1__.logoutBtn.addEventListener("click", logout);
 
 //Error
 const loginError = (error) => {
-    _ui__WEBPACK_IMPORTED_MODULE_1__.errorBlock.classList.remove("hidden");
-    if (error.code == firebase_auth__WEBPACK_IMPORTED_MODULE_2__.AuthErrorCodes.INVALID_PASSWORD) {
-        _ui__WEBPACK_IMPORTED_MODULE_1__.errorField.innerHTML = "Wrong Password";
-    } else if (error.code == firebase_auth__WEBPACK_IMPORTED_MODULE_2__.AuthErrorCodes.USER_DELETED) {
-        _ui__WEBPACK_IMPORTED_MODULE_1__.errorField.innerHTML = "User Not Found";
-    } else if (error.code == firebase_auth__WEBPACK_IMPORTED_MODULE_2__.AuthErrorCodes.INVALID_EMAIL) {
-        _ui__WEBPACK_IMPORTED_MODULE_1__.errorField.innerHTML = "Invalid Email";
-    } else {
-        console.log(error.code);
-        _ui__WEBPACK_IMPORTED_MODULE_1__.errorField.innerHTML = error.code;
-    }
-}
-
-//Set Data
-const setData = async () => {
-    const user = auth.currentUser.uid
-    await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_3__.setDoc)((0,firebase_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(db, "users", user), { 
-        firstName: "Hello",
-        lastName: "World",
-        balance: 10000
-     })
-}
+  _ui__WEBPACK_IMPORTED_MODULE_1__.errorBlock.classList.remove("hidden");
+  if (error.code == firebase_auth__WEBPACK_IMPORTED_MODULE_2__.AuthErrorCodes.INVALID_PASSWORD) {
+    _ui__WEBPACK_IMPORTED_MODULE_1__.errorField.innerHTML = "Wrong Password";
+  } else if (error.code == firebase_auth__WEBPACK_IMPORTED_MODULE_2__.AuthErrorCodes.USER_DELETED) {
+    _ui__WEBPACK_IMPORTED_MODULE_1__.errorField.innerHTML = "User Not Found";
+  } else if (error.code == firebase_auth__WEBPACK_IMPORTED_MODULE_2__.AuthErrorCodes.INVALID_EMAIL) {
+    _ui__WEBPACK_IMPORTED_MODULE_1__.errorField.innerHTML = "Invalid Email";
+  } else {
+    console.log(error.code);
+    _ui__WEBPACK_IMPORTED_MODULE_1__.errorField.innerHTML = error.code;
+  }
+};
 
 //Read data
 const readData = async (useruid) => {
-    const user = useruid
-    const docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(db, "users", user);
-    const docSnap = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_3__.getDoc)(docRef);
-    showLoggedIn();
-    console.log(docSnap.data().balance);
-    _ui__WEBPACK_IMPORTED_MODULE_1__.availableBalance.innerHTML = ("₱" + docSnap.data().balance);
-}
+  const user = useruid;
+  const docRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(db, "users", user);
+  const docSnap = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_3__.getDoc)(docRef);
+  showLoggedIn();
+  console.log(docSnap.data().balance);
+  _ui__WEBPACK_IMPORTED_MODULE_1__.availableBalance.innerHTML = "₱" + docSnap.data().balance;
+  _ui__WEBPACK_IMPORTED_MODULE_1__.name.innerHTML = docSnap.data().firstName + " " + docSnap.data().lastName;
+  _ui__WEBPACK_IMPORTED_MODULE_1__.accountNumber.innerHTML = docSnap.data().accountNumber;
+};
 
-_ui__WEBPACK_IMPORTED_MODULE_1__.addFunds.addEventListener("click", setData);
 })();
 
 /******/ })()

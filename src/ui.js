@@ -7,3 +7,5 @@ export const errorField = document.querySelector("#errorField");
 export const userProfile = document.querySelector("#userProfile");
 export const addFunds = document.querySelector("#addFunds");
 export const availableBalance = document.querySelector("#availableBalance");
+export const name = document.querySelector("#name");
+export const accountNumber = document.querySelector("#accountNumber");
