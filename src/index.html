@@ -1,150 +1,189 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="mytheme">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" type ="text/css" href="../dist/styles.css">
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="../dist/styles.css" />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
 
- <!-- Navigation Bar -->
-
-<div id="navigationBar" class="navbar bg-base-100 md:p-5">
-
-    <div class="flex-1">
+    <div id="navigationBar" class="navbar bg-base-100 md:p-5">
+      <div class="flex-1">
         <a class="btn btn-ghost normal-case text-xl">Better GCash</a>
-    </div>
+      </div>
 
-    <div class="flex-none gap-2 ">
-
+      <div class="flex-none gap-2">
         <ul class="menu menu-horizontal px-1 hidden">
-            <li><a>Link</a></li>
+          <li><a>Link</a></li>
 
-            <li>
-                <details>
-                    <summary>
-                        Parent
-                    </summary>
-                    <ul class="p-2 bg-base-100">
-                        <li><a>Link 1</a></li>
-                        <li><a>Link 2</a></li>
-                    </ul>
-                </details>
-            </li>
+          <li>
+            <details>
+              <summary>Parent</summary>
+              <ul class="p-2 bg-base-100">
+                <li><a>Link 1</a></li>
+                <li><a>Link 2</a></li>
+              </ul>
+            </details>
+          </li>
         </ul>
 
         <div id="userProfile" class="dropdown dropdown-end hidden">
-            <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-                <div class="w-10 rounded-full">
-                    <img src="./img/profile.jpg" />
-                </div>
-            </label>
-            <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-                <li>
-                    <a class="justify-between">
-                        Profile
-                        <span class="badge">New</span>
-                    </a>
-                </li>
-                <li><a>Settings</a></li>
-                <li id="logoutBtn"><a>Logout</a></li>
-            </ul>
+          <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+            <div class="w-10 rounded-full">
+              <img src="./img/profile.jpg" />
+            </div>
+          </label>
+          <ul
+            tabindex="0"
+            class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <a class="justify-between">
+                Profile
+                <span class="badge">New</span>
+              </a>
+            </li>
+            <li><a>Settings</a></li>
+            <li id="logoutBtn"><a>Logout</a></li>
+          </ul>
         </div>
-
+      </div>
     </div>
-</div>
 
-<!-- Login Popup -->
+    <!-- Login Popup -->
 
-<div id="loginForm" class="fixed w-full p-5 h-full hidden">
-    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <div id="loginForm" class="fixed w-full p-5 h-full hidden">
+      <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <div class="space-y-6">
-            <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-                <img class="mx-auto h-20 w-auto" src="./img/better-gcash-logo.svg" alt="Your Company">
-                <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-default">Sign In
-                </h2>
+          <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <img
+              class="mx-auto h-20 w-auto"
+              src="./img/better-gcash-logo.svg"
+              alt="Your Company"
+            />
+            <h2
+              class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-default"
+            >
+              Sign In
+            </h2>
+          </div>
+          <div>
+            <label
+              for="email"
+              class="block text-sm font-medium leading-6 text-default"
+              >Email address</label
+            >
+            <div class="mt-2">
+              <input
+                id="inputEmail"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
             </div>
-            <div>
-                <label for="email" class="block text-sm font-medium leading-6 text-default">Email address</label>
-                <div class="mt-2">
-                    <input id="inputEmail" name="email" type="email" autocomplete="email" required
-                        class="p-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
-            </div>
+          </div>
 
-            <div>
-                <div class="flex items-center justify-between">
-                    <label for="password" class="block text-sm font-medium leading-6 text-default">Password</label>
-                    <div class="text-sm">
-                        <a href="#" class="font-semibold text-primary hover:text-accent">Forgot password?</a>
-                    </div>
-                </div>
-                <div class="mt-2">
-                    <input id="inputPassword" name="password" type="password" autocomplete="current-password" required
-                        class="p-2 lock w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                </div>
+          <div>
+            <div class="flex items-center justify-between">
+              <label
+                for="password"
+                class="block text-sm font-medium leading-6 text-default"
+                >Password</label
+              >
+              <div class="text-sm">
+                <a href="#" class="font-semibold text-primary hover:text-accent"
+                  >Forgot password?</a
+                >
+              </div>
             </div>
+            <div class="mt-2">
+              <input
+                id="inputPassword"
+                name="password"
+                type="password"
+                autocomplete="current-password"
+                required
+                class="p-2 lock w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
 
-            <div>
-                <button id="btnLogin"
-                    class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
-                    in</button>
-            </div>
-            <div id="errorBlock" class="alert alert-error rounded-md p-2 hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <span id="errorField"></span>
-            </div>
+          <div>
+            <button
+              id="btnLogin"
+              class="flex w-full justify-center rounded-md bg-primary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Sign in
+            </button>
+          </div>
+          <div id="errorBlock" class="alert alert-error rounded-md p-2 hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="stroke-current shrink-0 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span id="errorField"></span>
+          </div>
         </div>
 
         <p class="mt-10 text-center text-sm text-gray-500">
-            Not a member?
-            <a href="#" class="font-semibold leading-6 text-primary hover:text-accent">Register now</a>
+          Not a member?
+          <a
+            href="#"
+            class="font-semibold leading-6 text-primary hover:text-accent"
+            >Register now</a
+          >
         </p>
+      </div>
     </div>
-</div>
 
-<!-- Div Wrapper -->
+    <!-- Div Wrapper -->
 
-<div id="balanceForm" class="pt-10 pb-10 hidden">
+    <div id="balanceForm" class="pt-10 pb-10 hidden">
+      <!-- Balance Wrapper -->
 
-    <!-- Balance Wrapper -->
-
-    <div class="flex flex-row justify-center w-full">
-
+      <div class="flex flex-row justify-center w-full">
         <!-- Balance -->
 
         <div class="stats stats-vertical border lg:stats-horizontal">
-            <div class="stat">
-                <div class="badge badge-outline">Available Balance</div>
-                <div id="availableBalance" class="stat-value text-default">{accountBalance}</div>
-                <div class="stat-actions">
-                    <button id="addFunds" class="btn btn-sm btn-success">Add funds</button>
-                </div>
+          <div class="stat">
+            <div class="badge badge-outline">Available Balance</div>
+            <div id="availableBalance" class="stat-value text-default">
+              {accountBalance}
             </div>
+            <div class="stat-actions">
+              <button id="addFunds" class="btn btn-sm btn-success">
+                Add funds
+              </button>
+            </div>
+          </div>
 
-            <div class="stat">
-                <div class="badge badge-outline">Bank Account</div>
-                <div class="stat-value">{bankAccount}</div>
-                <div class="stat-actions">
-                    <button class="btn btn-sm">Withdrawal</button>
-                    <button class="btn btn-sm">deposit</button>
-                </div>
+          <div class="stat">
+            <div class="badge badge-outline">Bank Account</div>
+            <div class="stat-value">{bankAccount}</div>
+            <div class="stat-actions">
+              <button class="btn btn-sm">Withdrawal</button>
+              <button class="btn btn-sm">deposit</button>
             </div>
+          </div>
         </div>
+      </div>
 
+      <!--  -->
     </div>
-    
-
-   
-
-    <!--  -->
-
-</div>
-        <script type="module" src="ui.js"></script>
-        <script src="../dist/bundle.js"></script>
-</body>
+    <script type="module" src="ui.js"></script>
+    <script src="../dist/main.bundle.js"></script>
+  </body>
 </html>

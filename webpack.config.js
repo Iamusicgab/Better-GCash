@@ -1,11 +1,14 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  mode: 'development',
-  devtool: 'eval-source-map', 
-  entry: './src/index.js',
+  mode: "development",
+  devtool: false,
+  entry: {
+    main: "./src/index.js",
+    signup: "./src/signup.js",
+  },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "dist"),
   },
 };
