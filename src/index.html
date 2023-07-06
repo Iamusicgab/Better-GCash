@@ -183,5 +183,32 @@
     </div>
     <script type="module" src="ui.js"></script>
     <script src="../dist/main.bundle.js"></script>
+
+    <!-- Transaction History -->
+
+    <div class="flex w-full justify-center">
+      <div class="overflow-x-auto max-w-2xl">
+        <table class="table table-zebra">
+          <!-- head -->
+          <thead>
+            <tr>
+              <th></th>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- row 1 -->
+            <tr>
+              <th>1</th>
+              <td>{merchantId1}</td>
+              <td>{dateId1}</td>
+              <td>{purchaseAmount1}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </body>
 </html>
