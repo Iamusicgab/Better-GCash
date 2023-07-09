@@ -15,6 +15,22 @@ import {
   availableBalance,
   name,
   accountNumber,
+  loadingScreen,
+  purchaseDate1,
+  purchaseDate2,
+  purchaseDate3,
+  purchaseDate4,
+  purchaseDate5,
+  merchantName1,
+  merchantName2,
+  merchantName3,
+  merchantName4,
+  merchantName5,
+  purchaseAmount1,
+  purchaseAmount2,
+  purchaseAmount3,
+  purchaseAmount4,
+  purchaseAmount5,
 } from "./ui";
 
 //Firebase Imports
@@ -62,18 +78,29 @@ const showLoggedIn = () => {
   balanceForm.classList.remove("hidden");
   loginForm.classList.add("hidden");
   userProfile.classList.remove("hidden");
+  loadingScreen.classList.add("hidden");
 };
 
 const showSignedOut = () => {
   balanceForm.classList.add("hidden");
   loginForm.classList.remove("hidden");
   userProfile.classList.add("hidden");
+  loadingScreen.classList.add("hidden");
+};
+
+const loading = () => {
+  loadingScreen.classList.remove("hidden");
+  loginForm.classList.add("hidden");
+  balanceForm.classList.add("hidden");
+  userProfile.classList.add("hidden");
+  errorBlock.classList.add("hidden");
 };
 
 monitorAuthState();
 
 //Login
 const loginEmailPassword = async () => {
+  loading();
   const loginEmail = inputEmail.value;
   const loginPassword = inputPassword.value;
 
@@ -87,6 +114,8 @@ const loginEmailPassword = async () => {
   } catch (error) {
     console.log(error);
     loginError(error);
+    loadingScreen.classList.add("hidden");
+    loginForm.classList.remove("hidden");
   }
 };
 
@@ -125,4 +154,15 @@ const readData = async (useruid) => {
   availableBalance.innerHTML = "₱" + docSnap.data().balance;
   name.innerHTML = docSnap.data().firstName + " " + docSnap.data().lastName;
   accountNumber.innerHTML = docSnap.data().accountNumber;
+
+  //Purchase History
+  const phDocRef = doc(
+    db,
+    "users",
+    user,
+    "transactions",
+    "09wbxSCg0gTZ1PhIrPwW"
+  );
+  const phDocSnap = await getDoc(phDocRef);
+  console.log(phDocSnap.data().merchantName);
 };

@@ -34067,8 +34067,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   errorField: () => (/* binding */ errorField),
 /* harmony export */   inputEmail: () => (/* binding */ inputEmail),
 /* harmony export */   inputPassword: () => (/* binding */ inputPassword),
+/* harmony export */   loadingScreen: () => (/* binding */ loadingScreen),
 /* harmony export */   logoutBtn: () => (/* binding */ logoutBtn),
+/* harmony export */   merchantName1: () => (/* binding */ merchantName1),
+/* harmony export */   merchantName2: () => (/* binding */ merchantName2),
+/* harmony export */   merchantName3: () => (/* binding */ merchantName3),
+/* harmony export */   merchantName4: () => (/* binding */ merchantName4),
+/* harmony export */   merchantName5: () => (/* binding */ merchantName5),
 /* harmony export */   name: () => (/* binding */ name),
+/* harmony export */   purchaseAmount1: () => (/* binding */ purchaseAmount1),
+/* harmony export */   purchaseAmount2: () => (/* binding */ purchaseAmount2),
+/* harmony export */   purchaseAmount3: () => (/* binding */ purchaseAmount3),
+/* harmony export */   purchaseAmount4: () => (/* binding */ purchaseAmount4),
+/* harmony export */   purchaseAmount5: () => (/* binding */ purchaseAmount5),
+/* harmony export */   purchaseDate1: () => (/* binding */ purchaseDate1),
+/* harmony export */   purchaseDate2: () => (/* binding */ purchaseDate2),
+/* harmony export */   purchaseDate3: () => (/* binding */ purchaseDate3),
+/* harmony export */   purchaseDate4: () => (/* binding */ purchaseDate4),
+/* harmony export */   purchaseDate5: () => (/* binding */ purchaseDate5),
 /* harmony export */   userProfile: () => (/* binding */ userProfile)
 /* harmony export */ });
 const inputEmail = document.querySelector("#inputEmail");
@@ -34082,6 +34098,22 @@ const addFunds = document.querySelector("#addFunds");
 const availableBalance = document.querySelector("#availableBalance");
 const name = document.querySelector("#name");
 const accountNumber = document.querySelector("#accountNumber");
+const loadingScreen = document.querySelector("#loadingScreen");
+const purchaseDate1 = document.querySelector("#purchaseDate1");
+const purchaseDate2 = document.querySelector("#purchaseDate2");
+const purchaseDate3 = document.querySelector("#purchaseDate3");
+const purchaseDate4 = document.querySelector("#purchaseDate4");
+const purchaseDate5 = document.querySelector("#purchaseDate5");
+const merchantName1 = document.querySelector("#merchantName1");
+const merchantName2 = document.querySelector("#merchantName2");
+const merchantName3 = document.querySelector("#merchantName3");
+const merchantName4 = document.querySelector("#merchantName4");
+const merchantName5 = document.querySelector("#merchantName5");
+const purchaseAmount1 = document.querySelector("#purchaseAmount1");
+const purchaseAmount2 = document.querySelector("#purchaseAmount2");
+const purchaseAmount3 = document.querySelector("#purchaseAmount3");
+const purchaseAmount4 = document.querySelector("#purchaseAmount4");
+const purchaseAmount5 = document.querySelector("#purchaseAmount5");
 
 
 /***/ }),
@@ -36975,18 +37007,29 @@ const showLoggedIn = () => {
   balanceForm.classList.remove("hidden");
   loginForm.classList.add("hidden");
   _ui__WEBPACK_IMPORTED_MODULE_1__.userProfile.classList.remove("hidden");
+  _ui__WEBPACK_IMPORTED_MODULE_1__.loadingScreen.classList.add("hidden");
 };
 
 const showSignedOut = () => {
   balanceForm.classList.add("hidden");
   loginForm.classList.remove("hidden");
   _ui__WEBPACK_IMPORTED_MODULE_1__.userProfile.classList.add("hidden");
+  _ui__WEBPACK_IMPORTED_MODULE_1__.loadingScreen.classList.add("hidden");
+};
+
+const loading = () => {
+  _ui__WEBPACK_IMPORTED_MODULE_1__.loadingScreen.classList.remove("hidden");
+  loginForm.classList.add("hidden");
+  balanceForm.classList.add("hidden");
+  _ui__WEBPACK_IMPORTED_MODULE_1__.userProfile.classList.add("hidden");
+  _ui__WEBPACK_IMPORTED_MODULE_1__.errorBlock.classList.add("hidden");
 };
 
 monitorAuthState();
 
 //Login
 const loginEmailPassword = async () => {
+  loading();
   const loginEmail = _ui__WEBPACK_IMPORTED_MODULE_1__.inputEmail.value;
   const loginPassword = _ui__WEBPACK_IMPORTED_MODULE_1__.inputPassword.value;
 
@@ -37000,6 +37043,8 @@ const loginEmailPassword = async () => {
   } catch (error) {
     console.log(error);
     loginError(error);
+    _ui__WEBPACK_IMPORTED_MODULE_1__.loadingScreen.classList.add("hidden");
+    loginForm.classList.remove("hidden");
   }
 };
 
@@ -37038,6 +37083,17 @@ const readData = async (useruid) => {
   _ui__WEBPACK_IMPORTED_MODULE_1__.availableBalance.innerHTML = "₱" + docSnap.data().balance;
   _ui__WEBPACK_IMPORTED_MODULE_1__.name.innerHTML = docSnap.data().firstName + " " + docSnap.data().lastName;
   _ui__WEBPACK_IMPORTED_MODULE_1__.accountNumber.innerHTML = docSnap.data().accountNumber;
+
+  //Purchase History
+  const phDocRef = (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_3__.doc)(
+    db,
+    "users",
+    user,
+    "transactions",
+    "09wbxSCg0gTZ1PhIrPwW"
+  );
+  const phDocSnap = await (0,firebase_firestore__WEBPACK_IMPORTED_MODULE_3__.getDoc)(phDocRef);
+  console.log(phDocSnap.data().merchantName);
 };
 
 })();
