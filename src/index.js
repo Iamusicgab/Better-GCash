@@ -16,21 +16,9 @@ import {
   name,
   accountNumber,
   loadingScreen,
-  purchaseDate1,
-  purchaseDate2,
-  purchaseDate3,
-  purchaseDate4,
-  purchaseDate5,
-  merchantName1,
-  merchantName2,
-  merchantName3,
-  merchantName4,
-  merchantName5,
-  purchaseAmount1,
-  purchaseAmount2,
-  purchaseAmount3,
-  purchaseAmount4,
-  purchaseAmount5,
+  purchaseDate,
+  merchantName,
+  purchaseAmount,
 } from "./ui";
 
 //Firebase Imports
@@ -65,10 +53,8 @@ const db = getFirestore(app);
 const monitorAuthState = async () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      console.log("User is logged in");
       readData(user.uid);
     } else {
-      console.log("User is logged out");
       showSignedOut();
     }
   });
@@ -149,20 +135,19 @@ const readData = async (useruid) => {
   const user = useruid;
   const docRef = doc(db, "users", user);
   const docSnap = await getDoc(docRef);
-  showLoggedIn();
   console.log(docSnap.data().balance);
   availableBalance.innerHTML = "₱" + docSnap.data().balance;
   name.innerHTML = docSnap.data().firstName + " " + docSnap.data().lastName;
   accountNumber.innerHTML = docSnap.data().accountNumber;
+  showLoggedIn();
+  transactionHistory();
+};
 
-  //Purchase History
-  const phDocRef = doc(
-    db,
-    "users",
-    user,
-    "transactions",
-    "09wbxSCg0gTZ1PhIrPwW"
-  );
-  const phDocSnap = await getDoc(phDocRef);
-  console.log(phDocSnap.data().merchantName);
+const transactionHistory = async () => {
+  const user = auth.currentUser.uid;
+  const docRef = doc(db, "users", user, "transactions", "09wbxSCg0gTZ1PhIrPwW");
+  const docSnap = await getDoc(docRef);
+  merchantName.innerHTML = docSnap.data().merchantName;
+  purchaseAmount.innerHTML = docSnap.data().purchaseAmount;
+  purchaseDate.innerHTML = docSnap.data().purchaseDate;
 };
